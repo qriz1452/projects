@@ -80,7 +80,7 @@ write pipeline and build job ; https://github.com/qriz1452/Imranteli-vprofile-pr
 
 
 
-
+ISSUE : https://stackoverflow.com/questions/31316339/how-to-solve-maven-2-6-resource-plugin-dependency/76986625#76986625
 
 
 
