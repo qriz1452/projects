@@ -1,4 +1,6 @@
 Tools used : 
+
+
 ![image](https://github.com/qriz1452/projects/assets/112246222/2410b15f-0f66-42ac-be53-1245ea7d5c88)
 ![image](https://github.com/qriz1452/projects/assets/112246222/9c6cd012-d55d-4fc8-ae93-e7f1783196b3)
 
@@ -47,7 +49,10 @@ Sonatype Nexus :
    - maven2 group ( vpro-group ) : group all repo - central , release , snapshot
  
 
-sonarqube sonarscanner : just login
+sonarqube sonarscanner : just login ,
+- create token for jenkins and 
+- add webhook :http://172.31.52.9/8080/sonarqube-webhook/
+- an also configure quality gates
 
 --------------------------------
 
