@@ -51,8 +51,8 @@ Sonatype Nexus :
 
 sonarqube sonarscanner : just login ,
 - create token for jenkins and 
-- add webhook :http://172.31.52.9/8080/sonarqube-webhook/
-- an also configure quality gates
+- add webhook :http://172.31.52.9:8080/sonarqube-webhook/
+- an also configure quality gates 
 
 --------------------------------
 
