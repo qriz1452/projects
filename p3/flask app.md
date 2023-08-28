@@ -1,15 +1,4 @@
-* can do network isolation using `--network ` flag .
 
-* to show layers : `export showLayers='{{ range .RootFS.Layers }}{{ println . }}{{end}}'`  then `docker inspect -f "$showLayers" widgetfactory:0.1`
-
-
-* to show size : `export showSize='{{ .Size }}'	`  then `docker inspect -f "$showSize" widgetfactory:0.1`
-
-
-* always remove extra files you have added in container so that image size and layers can be less.
-
-
-* `docker inspect db1 -f '{{ json .Mounts }}' | python -m json.tool`
 
 ------------------------------------------------------------------------
 
@@ -513,3 +502,83 @@ Throughout the project, I executed several critical commands and followed specif
 The Dockerization of the Flask application had a positive impact on the organization by providing an efficient, secure, and cost-effective solution for note management. By successfully encapsulating the application and its dependencies within Docker containers, we achieved consistency across environments and reduced the potential for compatibility issues. Additionally, the utilization of multi-stage builds and proper Dockerfile management led to smaller and optimized container images, enhancing resource efficiency.
 
 Overall, this project highlighted the importance of leveraging containerization technologies like Docker to streamline deployment processes, improve resource utilization, and maintain a consistent development-to-production pipeline. It also emphasized the significance of collaborating with cross-functional teams to ensure successful deployment in cloud environments like AWS.
+
+
+
+=============================================================
+------------------------------------------------------------------
+
+* can do network isolation using `--network ` flag .
+
+* to show layers : `export showLayers='{{ range .RootFS.Layers }}{{ println . }}{{end}}'`  then `docker inspect -f "$showLayers" widgetfactory:0.1`
+
+
+* to show size : `export showSize='{{ .Size }}'	`  then `docker inspect -f "$showSize" widgetfactory:0.1`
+
+
+* always remove extra files you have added in container so that image size and layers can be less.
+
+
+* `docker inspect db1 -f '{{ json .Mounts }}' | python -m json.tool`
+
+* Metadat can be added in dockerfile :
+```
+LABEL maintainer="EMAIL_ADDRESS"
+
+
+
+ARG BUILD_VERSION
+
+ARG BUILD_DATE
+
+ARG APPLICATION_NAME
+
+
+
+LABEL org.label-schema.build-date=$BUILD_DATE
+
+LABEL org.label-schema.application=$APPLICATION_NAME
+
+LABEL org.label-schema.version=$BUILD_VERSION
+
+
+
+
+
+
+```
+
+
+
+and we can pass the metada with docker run command :
+```
+docker build -t <DOCKER_USERNAME>/weather-app --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+
+--build-arg APPLICATION_NAME=weather-app --build-arg BUILD_VERSION=v1.0 -f Dockerfile .
+```
+
+watchtower used to update the image if there is any new version :  
+     When you push an update to your Docker registry, Watchtower detects the changes and pulls down the new copy of the image. It will then restart the container using the new image and the same start options of the original
+     
+```
+docker run -d --name watchtower --restart always -v /var/run/docker.sock:/var/run/docker.sock v2tec/watchtower -i 5
+
+```
+     
+more details here : 
+ * https://github.com/qriz1452/ACG/blob/main/learn%20docker%20by%20doing/5%20Doing%20More%20with%20Docker/3%20Adding%20Metadata%20and%20Labels.md
+
+================================================
+
+* created docker compose for frontend and backend.
+refrence : https://github.com/qriz1452/ACG/blob/main/learn%20docker%20by%20doing/5%20Doing%20More%20with%20Docker/5%20Build%20Services%20with%20Docker%20Compose.md
+
+* create docker compose for monitoring using prometheus , grafana , cadvisor , nodexporter ,pushgateway.
+refrence : https://github.com/qriz1452/ACG/tree/main/learn%20docker%20by%20doing/6%20Prometheus%20and%20Containers
+
+* usded docker swarm to deploy the app in multiple worker nodes :
+refrence : https://github.com/qriz1452/ACG/tree/main/learn%20docker%20by%20doing/7%20Working%20with%20Docker%20Swarm
+
+
+-------------------------------------------------------------------------------
+
